@@ -45,9 +45,9 @@ command will be used to build your docker image (the final '.' is significant), 
 The build process must run out of the box, i.e. it should download and install all necessary 3rd party dependencies, either download from internet or copy from the unpacked submission all necessary external data files, your model files, etc.
 Your container will be started by the
 ```
-docker run -v <local_data_path>:/data:ro -v <local_writable_area_path>:/wdata -it <id>
+docker run -v <local_data_path>:/data:ro -v <local_writable_area_path>:/workdir -it <id>
 ```
-command, where the `-v` parameter mounts the contest's data to the container's `/data` folder. This means that all the raw contest data will be available for your container within the `/data` folder. Note that your container will have read only access to the `/data` folder. You can store large temporary files in the `/wdata` folder.
+command, where the `-v` parameter mounts the contest's data to the container's `/data` folder. This means that all the raw contest data will be available for your container within the `/data` folder. Note that your container will have read only access to the `/data` folder. You can store large temporary files in the `/workdir` folder.
 
 #### Custom docker options
 In some cases it may be necessary to pass custom options to the `docker` or `nvidia-docker` commands. If you need such flags, you should list them in a file named `flags.txt` and place this file in the `/code` folder of your submission. The file must contain a single line only. If this file exists then its content will be added to the options list of the `docker run` command.
@@ -60,7 +60,7 @@ If `flags.txt` contains:
 ```
 then the docker command will look like:
 ```
-docker run --ipc=host --shm-size 4G -v <local_data_path>:/data:ro -v <local_writable_area_path>:/wdata -it <id>
+docker run --ipc=host --shm-size 4G -v <local_data_path>:/data:ro -v <local_writable_area_path>:/workdir -it <id>
 ```
 
 ## Train and test scripts
